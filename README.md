@@ -1,38 +1,83 @@
-# Enhanced Server-Client Framework for Optimizing QoS (ML Version)
-This project implements an ML-based QoS optimizer for video streaming inspired by the paper:
-"Enhanced Server-Client Framework for Optimizing QoS in Video Streaming Over Diverse Networks".
+# ML-Based QoS Optimizer for Video Streaming
 
-## Contents
-- utils.py                : dataset generator utilities
-- data_generator.py      : generate synthetic QoS dataset
-- train_models.py        : train models (classifier + regressors) and save them
-- simulate_run.py        : run simulation/inference using trained models and create plots
-- evaluate_models.py     : compute evaluation metrics on held-out data
-- requirements.txt       : Python dependencies
+A machine-learning simulation for studying **Quality of Service (QoS)** optimization in video-streaming environments.
 
-## How to run (recommended using virtualenv)
-1. Install dependencies:
-   pip install -r requirements.txt
+The project models a workflow in which network/QoS observations are generated, ML models are trained, performance is evaluated, and a simulation produces delivery, delay, and throughput results.
 
-2. Generate dataset (optional - dataset is created by data_generator.py):
-   python data_generator.py
-   -> Generates `qos_training_data.csv`
+## Pipeline
 
-3. Train models:
-   python train_models.py
-   -> Saves: server_classifier.pkl, regr_delay.pkl, regr_throughput.pkl, regr_delivery.pkl
+```text
+Synthetic QoS data
+      ↓
+Feature preparation
+      ↓
+Classifier + regression models
+      ↓
+Evaluation
+      ↓
+Streaming simulation
+      ↓
+QoS metrics and plots
+```
 
-4. Evaluate models:
-   python evaluate_models.py
+## Main components
 
-5. Run a simulation using the trained models:
-   python simulate_run.py
-   -> Saves simulation_results.csv and plots: plot_delay.png, plot_throughput.png, plot_delivery_ratio.png
+- `data_generator.py` — generates synthetic QoS training data
+- `train_models.py` — trains the classifier and regression models
+- `evaluate_models.py` — evaluates trained model performance
+- `simulate_run.py` — runs the QoS simulation
+- `video_stream_simulation.py` — video-streaming simulation logic
+- `utils.py` — shared utilities
+- `requirements.txt` — Python dependencies
 
-## What to include in report/PPT
-- Abstract & intro (use paper + explanation of ML approach)
-- Dataset description (explain synthetic generation)
-- Model selection (RandomForestClassifier + RandomForestRegressor)
-- Training details and results (accuracy, RMSE, R2)
-- Simulation results & plots (explain adaptive bitrate/server selection)
-- Conclusion & future work (use real NS2 traces, deep learning model, combine with CSO hybrid)
+## Tech stack
+
+Python, NumPy, pandas, scikit-learn, Matplotlib, seaborn, joblib, and tqdm.
+
+## Setup
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+```
+
+On Windows:
+
+```powershell
+.venv\Scripts\activate
+```
+
+## Run the project
+
+Generate or refresh the dataset:
+
+```bash
+python3 data_generator.py
+```
+
+Train models:
+
+```bash
+python3 train_models.py
+```
+
+Evaluate:
+
+```bash
+python3 evaluate_models.py
+```
+
+Run a simulation:
+
+```bash
+python3 simulate_run.py
+```
+
+## Generated artifacts
+
+Training and simulation create model binaries, result CSV files, and plots. These are build/runtime artifacts and are excluded from future commits through `.gitignore`.
+
+## Scope and limitations
+
+This is an educational/simulation project. The included workflow uses synthetic QoS data and should not be interpreted as validation on production network traffic. A natural next step is evaluation with real network traces and controlled streaming experiments.
