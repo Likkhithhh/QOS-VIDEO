@@ -1,8 +1,17 @@
 # ML-Based QoS Optimizer for Video Streaming
 
+[![Python syntax check](https://github.com/Likkhithhh/QOS-VIDEO/actions/workflows/python-syntax.yml/badge.svg)](https://github.com/Likkhithhh/QOS-VIDEO/actions/workflows/python-syntax.yml)
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![scikit-learn](https://img.shields.io/badge/ML-scikit--learn-orange)
+![Networking](https://img.shields.io/badge/Domain-Networking%20%26%20QoS-success)
+
 A machine-learning simulation for studying **Quality of Service (QoS)** optimization in video-streaming environments.
 
-The project models a workflow in which network/QoS observations are generated, ML models are trained, performance is evaluated, and a simulation produces delivery, delay, and throughput results.
+The project generates network/QoS observations, trains classification and regression models, evaluates model behavior, and runs simulations that produce delivery, delay, and throughput results.
+
+## Why this project matters
+
+Video streaming quality depends on interacting network conditions rather than a single metric. This project combines **networking + ML** to explore adaptive decisions from multiple QoS signals.
 
 ## Pipeline
 
@@ -20,13 +29,24 @@ Streaming simulation
 QoS metrics and plots
 ```
 
+## Visual outputs
+
+### Delay
+![Delay plot](plot_delay.png)
+
+### Throughput
+![Throughput plot](plot_throughput.png)
+
+### Delivery ratio
+![Delivery ratio plot](plot_delivery_ratio.png)
+
 ## Main components
 
 - `data_generator.py` — generates synthetic QoS training data
-- `train_models.py` — trains the classifier and regression models
+- `train_models.py` — trains classifier and regression models
 - `evaluate_models.py` — evaluates trained model performance
 - `simulate_run.py` — runs the QoS simulation
-- `video_stream_simulation.py` — video-streaming simulation logic
+- `video_stream_simulation.py` — streaming simulation logic
 - `utils.py` — shared utilities
 - `requirements.txt` — Python dependencies
 
@@ -42,42 +62,33 @@ source .venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-On Windows:
+Windows:
 
 ```powershell
 .venv\Scripts\activate
 ```
 
-## Run the project
-
-Generate or refresh the dataset:
+## Run
 
 ```bash
 python3 data_generator.py
-```
-
-Train models:
-
-```bash
 python3 train_models.py
-```
-
-Evaluate:
-
-```bash
 python3 evaluate_models.py
-```
-
-Run a simulation:
-
-```bash
 python3 simulate_run.py
 ```
 
-## Generated artifacts
+## Reproducibility
 
-Training and simulation create model binaries, result CSV files, and plots. These are build/runtime artifacts and are excluded from future commits through `.gitignore`.
+Model binaries are generated locally and intentionally excluded from future commits. Re-run `train_models.py` to regenerate them.
 
 ## Scope and limitations
 
-This is an educational/simulation project. The included workflow uses synthetic QoS data and should not be interpreted as validation on production network traffic. A natural next step is evaluation with real network traces and controlled streaming experiments.
+This is an educational/simulation project based on synthetic QoS data. It should not be treated as validation on production network traffic.
+
+## Roadmap
+
+- Evaluate on real network traces
+- Add reproducible experiment seeds/configuration
+- Add unit/integration tests
+- Compare additional ML models
+- Explore adaptive bitrate decision policies
